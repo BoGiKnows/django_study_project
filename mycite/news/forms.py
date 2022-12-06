@@ -1,9 +1,10 @@
 from django import forms
-from .models import Category,News
+from .models import Category, News
 import re
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from captcha.fields import CaptchaField
 
 
 class UserLoginForm(AuthenticationForm):
@@ -11,8 +12,7 @@ class UserLoginForm(AuthenticationForm):
                                widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(label='пароль',
                                widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-
-
+    captcha = CaptchaField(label='Заполните капчу')
 
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(label='Имя', widget=forms.TextInput(attrs={'class': 'form-control'}))
